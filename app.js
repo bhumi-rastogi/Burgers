@@ -152,19 +152,24 @@ function renderIngredientsBoard() {
 //Judgement 1
 //In the p element having price-details as the class, display the calculated
 //price based on ingredients
-function renderPrice(){
-  var totalBill = calculatePrice();
-  var price = document.querySelector(".price-details");
-  price.textContent = `INR ${totalBill}.`;
+for (let ingredient in state) {
+  let selected = ".btn-" + ingredient.toLowerCase();
+  document.querySelector(selected).onclick = function () {
+    state[ingredient] = !state[ingredient];
+    renderAll();
+  }
 }
 
 function calculatePrice() {
   var total = wholeWheatBun;
-  for (var i in ingredients){
-    if(state[i]){
-      total += ingredients[i];
+  for (var ingredients in state){
+    if(state[ingredients]){
+      total += ingredients[ingredients];
     }
   }
-  return total;
+  
+  let info = document.querySelector(".price-details");
+  info.textContent = "INR" + total;
 }
 
+renderAll();
